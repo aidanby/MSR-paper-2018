@@ -1,0 +1,33 @@
+
+\section{Introduction}
+
+To reduce the communication barriers between development teams and customers, a new form of testing strategy, \textit{Behavior Driven Development} (BDD), became more prevalent in recent years \cite{solis2011study}. BDD aims to combine business and technical interests using a domain-specific language (DSL) that is similar to the English language. In BDD, the stakeholders specify \textit{scenarios} in \textit{.feature} files to describe functionalities of software. The scenarios can be described by all stakeholders of a project due to the simplistic English-like language format of BDD. The stakeholders can be customers, who have little to no programming experience, but can still define software requirements (or understand the logic of an implementation) using \textit{.feature} files. Because scenarios serve as a description of the functionality of a software, it is important to keep scenarios up-to-date as the functionalities of the software evolves. For example, when  a new developer arrives in a project, having the \textit{.feature} files up-to-date would ease the learning curve of the developer, i.e., the \textit{.feature} files would capture the most current functionalities in a friendly and precise manner.
+
+The \textit{BDD co-changes} occur when a \textit{.feature} file and its corresponding source code files are modified in the same commit, or over different commits but in a close time span. As a BDD project scales up, the traceability of these co-changes may become harder to grasp because the links between \textit{.feature} files and their corresponding source code files naturally increase. An \textit{out-of-sync} BDD co-change occurs when a \textit{.feature} file and its corresponding source code files are modified in separate commits. The problem of maintaining BDD co-changes becomes more challenging when new developers enter into the project because they would have to identify the existing links between BDD files and source code files.
+
+
+Existing research establishes the characteristics of BDD by studying large scale BDD projects in detail. Solís \textit{et al.} \cite{solis2011study} found that \textit{ubiquitous language} and \textit{Iterative Decomposition Process} are key characteristics of BDD. Other research work discussed the advantages of BDD in circuit design and verification \cite{diepenbeck2012behavior}. Regarding testing strategies, Bhat \textit{et al.} \cite{bhat2006evaluating} evaluated the efficiency of Test Driven Development (TDD), and Zaidman \textit{et al.} \cite{zaidman2008mining} explored the traceability of source and test code. With regards to co-changes, Mcintosh \textit{et al.} \cite{mcintosh2014mining} studied large scale software projects to predict co-changes between build system changes and source code changes. Although the characteristics of BDD and the traceability between test code and source code have been studied, maintaining the traceability between \textit{.feature} files and source code remains unexplored. Maintaining such traceability is important because it keeps the documentation (i.e., software scenarios) up-to-date, help developers learn the project faster, and better enforce the adopted testing strategy. We use an illustrative example in \textit{Section 2} to demonstrate the difficulty in maintaining \textit{.feature} files and source code file co-changes.
+
+Our work aims to help developers identify when \textit{.feature} files should be modified before committing code. After mining and analyzing 133 GitHub projects that use BDD, we address the following three research questions:
+
+\begin{itemize}
+\item \textbf{(RQ1) Can we accurately identify co-changes between \textit{.feature} files and source code files?}
+
+We link \textit{.feature} files and source code files by measuring the similarities between English phrases in \textit{.feature} and source code. After performing a manual analysis to evaluate the quality of the established links, we conclude that we can automatically identify co-changes between \textit{.feature} files and source code files with an accuracy of 79\%.
+
+\item \textbf {(RQ2) Can we accurately predict when co-changes between \textit{.feature} files and source code files are necessary?}
+
+To help developers determine the necessity of changing \textit{.feature} files before committing source code files, we identify the characteristics that can predict the modification of \textit{.feature} files within a commit. We use three classification techniques (random forest, Naive Bayes, and logistic regression) to predict corresponding \textit{.feature} file co-changes when changes in source code are made. Our random forest, Naive Bayes and logistic regression classifiers can predict \textit{.feature} file co-changes with a relatively high AUC of 0.77, 0.74, and 0.70, respectively.
+
+\item \textbf {(RQ3) What are the most significant characteristics for predicting co-changes between \textit{.feature} files and source code files?}
+
+To identify the characteristics that are most important to predict co-changes between \textit{.feature} files and source code files, we analyze the classification technique with the highest AUC (i.e., our random forest technique). We use a mean decrease AUC approach on the random forest classifier to identify the most important characteristics to predict co-changes between \textit{.feature} file and source code files. We observe that \textit{test files added} and \textit{source LOC deleted} are the most influential characteristics.
+
+\end{itemize}
+
+The remainder of the paper is organized as follows. In \textit{Section 2}, we provide a motivating example to our work. \textit{Section 3} outlines the experiment setup. \textit{Section 4} presents the results with respect to our three research questions, and \textit{Section 5} discusses threats to the validity of our results. In \textit{Section 6}, we examine related work and \textit{Section 7} draws conclusions to the paper.
+
+
+
+
+
